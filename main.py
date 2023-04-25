@@ -1,9 +1,10 @@
 import ast
+import builtins
 import importlib
 import json
 import os
-import pprint
 import re
+import sys
 from inspect import isclass, isfunction, ismethod, isbuiltin, ismodule
 
 from visitors.clazz import ClassAnalyzer, ClassRelationshipAnalyzer, SuperclassFinder
@@ -11,7 +12,6 @@ from visitors.imports import ImportCollector
 from visitors.ref import ReferenceExtractor
 
 set2 = [
-    "torch",
     "torch.utils.checkpoint.CheckpointFunction",
     "torch.autograd.function._SingleLevelFunction",
     "torch.autograd.function.Function",
@@ -25,22 +25,22 @@ set2 = [
     "torch.nn.functional.threshold",
     "torch._tensor.Tensor",
 ]
-
-
-# find the
-def find_imports(path):
-    with open(path, 'r', encoding='utf-8') as file:
-        file_content = file.read()
-
-    tree = ast.parse(file_content)
-
-    imports = []
-    for node in ast.walk(tree):
-        if isinstance(node, (ast.Import, ast.ImportFrom)):
-            for alias in node.names:
-                imports.append(alias.name)
-
-    return imports
+namespaces = [
+    "torch",
+    "torch.utils",
+    "torch.utils.checkpoint",
+    "torch.autograd.function._SingleLevelFunction",
+    "torch.autograd.function.Function",
+    "torch.nn.modules.activation.ReLU",
+    "torch.nn.modules.activation.Threshold",
+    "torch.nn.modules.conv._ConvNd",
+    "torch.nn.modules.conv.Conv1d",
+    "torch.nn.modules.conv.Conv2d",
+    "torch.nn.modules.conv.Conv3d",
+    "torch.nn.functional.relu",
+    "torch.nn.functional.threshold",
+    "torch._tensor.Tensor",
+]
 
 
 def analyze(o):
@@ -57,7 +57,8 @@ def analyze(o):
         **usages,
         "extends": extends,
         "imports": imports,
-        "refs": paths
+        "refs": paths,
+        "meta": o
     }
 
 
@@ -180,6 +181,25 @@ def write_json_to_file(json_obj, file_name):
         json.dump(json_obj, f)
 
 
+def to_json(data):
+    if isinstance(data, dict):
+        return {to_json(k): to_json(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [to_json(elem) for elem in data]
+    elif isinstance(data, tuple):
+        return tuple(to_json(elem) for elem in data)
+    elif isinstance(data, set):
+        return [to_json(elem) for elem in data]
+    elif isinstance(data, str):
+        return data.encode('unicode_escape').decode()
+    elif isinstance(data, bytes):
+        return data.decode('unicode_escape')
+    elif isinstance(data, (int, float, bool, type(None))):
+        return data
+    else:
+        return str(data)
+
+
 def convert_sets_to_lists(data):
     if isinstance(data, dict):
         return {k: convert_sets_to_lists(v) for k, v in data.items()}
@@ -196,50 +216,132 @@ def match_string_within_string(string, pattern):
     return matches
 
 
-if __name__ == '__main__':
-    targets = {}
+def extract_namespaces(target):
+    if "." in target:
+        parts = target.split('.')
+        namespaces = []
+        for i in range(len(parts) - 1):
+            namespace = '.'.join(parts[:i + 1])
+            namespaces.append(namespace)
+        return namespaces
+    else:
+        return [target]
+
+
+def create_node(nodes, node_id_count, name, category_id):
+    nodes.append({
+        "id": node_id_count,
+        "name": name,
+        "label": {
+            "normal": {
+                "show": True
+            }
+        },
+        "category": category_id
+    })
+
+
+def is_builtin(module_name: str) -> bool:
+    if module_name in sys.builtin_module_names:
+        return True
+    if module_name in sys.modules:
+        module = sys.modules[module_name]
+        return module.__name__ in sys.builtin_module_names or \
+            module.__name__ == builtins.__name__
+    return False
+
+
+def is_standard_library(module_name: str) -> bool:
+    if module_name is None or module_name.startswith('.'):
+        return False
+    if module_name in sys.builtin_module_names:
+        return True
+    try:
+        module = importlib.import_module(module_name)
+    except ModuleNotFoundError:
+        return False
+
+    module_file = getattr(module, "__file__", None)
+
+    if module_file is None:
+        return False
+
+    return module_file.startswith(os.path.dirname(os.__file__))
+
+
+def main():
+    nodes = []
+    links = []
+    categories = []
+    node_id_count = 0
+
+    # namespaces are the categories
+    _namespaces = set()
+
+    # first derive the namespaces from the given set.
     for p in set2:
-        meta = generate_metadata(p)
-        data = analyze(meta)
+        x = extract_namespaces(p)
+        for xi in x:
+            if xi is not None and xi != "null" and \
+                    not is_builtin(xi) and not is_standard_library(xi):
+                _namespaces.add(xi)
+
+    targets = {}
+
+    # then we iterate through each of the
+    # target class/function/namespace.
+    for p in set2:
+        data = analyze(generate_metadata(p))
         targets = {
             **targets,
             p: data
         }
-    pprint.pprint(targets)
 
-    # refs = targets["torch.utils.checkpoint.CheckpointFunction"]["refs"]
-    #
-    # filtered_paths = []
-    # for r in refs:
-    #     if match_string_within_string(r, "site-packages/torch/"):
-    #         filtered_paths.append(r)
-    #
-    # for p in filtered_paths:
-    #     meta = generate_metadata(p)
-    #     data = analyze(meta)
-    #     targets = {
-    #         **targets,
-    #         p: data
-    #     }
+    # create the node for ech namespaces with the imports.
+    for key, value in targets.items():
+        for i in targets[key]["imports"]:
+            if i is not None and i != "null" and not is_builtin(i) \
+                    and not is_standard_library(i):
+                _namespaces.add(i)
 
-    # print(filtered_paths)
+    # track the initial namespaces.
+    category_id_count = 0
+    for n in _namespaces:
+        categories.append({"id": category_id_count, "name": n})
+        category_id_count += 1
 
-    write_json_to_file(convert_sets_to_lists(targets), "data.json")
+    for namespace in _namespaces:
+        create_node(nodes, node_id_count, namespace, namespace)
+        node_id_count += 1
 
-    #
-    # labels = list(data.keys())
-    # values = list(data.values())
-    #
-    # fig, ax = plt.subplots()
-    # # Create the bar chart
-    # ax.bar(labels, values)
-    # # Add labels and a title
-    # ax.set_ylabel('Frequency')
-    # ax.set_xlabel('Element')
-    # ax.set_title('Element Frequencies')
-    #
-    # # Display the bar chart
-    # plt.show()
+    links_count = 0
+
+    # create the actual node.
+    # i.e., torch.nn.modules.activation.Threshold x12 nodes
+    for key, value in targets.items():
+        create_node(nodes, node_id_count, key, category_id=targets[key]["meta"]["module_name"])
+        for _import in targets[key]["imports"]:
+            for category_index, category in enumerate(categories):
+                if _import == category["name"]:
+                    links.append({
+                        "id": links_count,
+                        "source": node_id_count,
+                        "target": category_index
+                    })
+                    links_count += 1
+        node_id_count += 1
+
+    write_json_to_file(to_json({
+        "nodes": nodes,
+        "links": links,
+        "categories": categories
+    }), "vis.json")
+
+    write_json_to_file(to_json(targets), "data.json")
+
+
+if __name__ == '__main__':
+    main()
 
 # Python dependencies required for development
 # astunparse
