@@ -1,1 +1,634 @@
-{"torch.utils.checkpoint.CheckpointFunction": {"classes": ["RuntimeError"], "functions": ["backward", "list", "forward", "set_device_states", "range", "get_device_states", "tuple", "enumerate", "detach_variable", "len", "RuntimeError", "_get_autocast_kwargs", "check_backward_validity", "run_function", "isinstance"], "constants": [], "modules": [], "extends": ["Function"], "imports": ["torch", "weakref", "typing", "warnings"], "refs": ["/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/weakref.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py"], "meta": {"object_name": "CheckpointFunction", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/checkpoint.py", "module_name": "torch.utils.checkpoint"}}, "torch.autograd.function._SingleLevelFunction": {"classes": ["NotImplementedError", "Any", "Tuple", "FunctionCtx", "FunctionMeta"], "functions": ["backward", "NotImplementedError", "forward", "setup_context", "jvp"], "constants": ["_C"], "modules": [], "extends": ["_FunctionBase", "FunctionCtx", "_HookMixin", "FunctionMeta"], "imports": ["torch.utils.hooks", "torch._functorch", "functools", "warnings", "torch", "collections", "torch._functorch.autograd_function", "torch._C", "typing"], "refs": ["/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_functorch/__init__.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so"], "meta": {"object_name": "_SingleLevelFunction", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/autograd/function.py", "module_name": "torch.autograd.function"}}, "torch.autograd.function.Function": {"classes": ["RuntimeError", "NotImplementedError", "DeprecationWarning"], "functions": ["NotImplementedError", "custom_function_call", "vmap", "apply", "super", "RuntimeError"], "constants": [], "modules": [], "extends": ["_SingleLevelFunction"], "imports": ["torch.utils.hooks", "torch._functorch", "functools", "warnings", "torch", "collections", "torch._functorch.autograd_function", "torch._C", "typing"], "refs": ["/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_functorch/__init__.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so"], "meta": {"object_name": "Function", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/autograd/function.py", "module_name": "torch.autograd.function"}}, "torch.nn.modules.activation.ReLU": {"classes": ["F", "Module", "Tensor"], "functions": ["super", "extra_repr", "forward"], "constants": [], "modules": [], "extends": ["Module"], "imports": ["torch.nn.parameter", null, "warnings", "torch", "torch.nn.init", "module", "linear", "typing"], "refs": ["/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py"], "meta": {"object_name": "ReLU", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/activation.py", "module_name": "torch.nn.modules.activation"}}, "torch.nn.modules.activation.Threshold": {"classes": ["F", "Module", "Tensor"], "functions": ["super", "extra_repr", "forward"], "constants": [], "modules": [], "extends": ["Module"], "imports": ["torch.nn.parameter", null, "warnings", "torch", "torch.nn.init", "module", "linear", "typing"], "refs": ["/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py"], "meta": {"object_name": "Threshold", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/activation.py", "module_name": "torch.nn.modules.activation"}}, "torch.nn.modules.conv._ConvNd": {"classes": ["List", "Union", "Module", "Parameter", "ValueError", "Tuple", "Optional", "Tensor"], "functions": ["zip", "_reverse_repeat_tuple", "Parameter", "range", "extra_repr", "reset_parameters", "ValueError", "len", "super", "hasattr", "_conv_forward", "any", "isinstance"], "constants": [], "modules": [], "extends": ["Module"], "imports": ["torch.nn.parameter", null, "warnings", "utils", "torch", "torch._torch_docs", "typing", "module", "math", "common_types", "lazy"], "refs": [null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so"], "meta": {"object_name": "_ConvNd", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py", "module_name": "torch.nn.modules.conv"}}, "torch.nn.modules.conv.Conv1d": {"classes": ["F", "Union", "Optional", "Tensor"], "functions": ["forward", "super", "_single", "_conv_forward", "isinstance"], "constants": [], "modules": [], "extends": ["_ConvNd"], "imports": ["torch.nn.parameter", null, "warnings", "utils", "torch", "torch._torch_docs", "typing", "module", "math", "common_types", "lazy"], "refs": [null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so"], "meta": {"object_name": "Conv1d", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py", "module_name": "torch.nn.modules.conv"}}, "torch.nn.modules.conv.Conv2d": {"classes": ["F", "Union", "Optional", "Tensor"], "functions": ["forward", "_pair", "super", "_conv_forward", "isinstance"], "constants": [], "modules": [], "extends": ["_ConvNd"], "imports": ["torch.nn.parameter", null, "warnings", "utils", "torch", "torch._torch_docs", "typing", "module", "math", "common_types", "lazy"], "refs": [null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so"], "meta": {"object_name": "Conv2d", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py", "module_name": "torch.nn.modules.conv"}}, "torch.nn.modules.conv.Conv3d": {"classes": ["F", "Union", "Optional", "Tensor"], "functions": ["forward", "super", "_triple", "_conv_forward", "isinstance"], "constants": [], "modules": [], "extends": ["_ConvNd"], "imports": ["torch.nn.parameter", null, "warnings", "utils", "torch", "torch._torch_docs", "typing", "module", "math", "common_types", "lazy"], "refs": [null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so"], "meta": {"object_name": "Conv3d", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py", "module_name": "torch.nn.modules.conv"}}, "torch.nn.functional.relu": {"classes": ["relu", "relu_"], "functions": ["has_torch_function_unary", "relu", "relu_", "handle_torch_function"], "constants": [false, "relu(input, inplace=False) -> Tensor\\n\\n    Applies the rectified linear unit function element-wise. See\\n    :class:`~torch.nn.ReLU` for more details.\\n    "], "modules": [], "extends": [], "imports": ["modules", "_jit_internal", "torch._torch_docs", "warnings", null, "torch", "math", "modules.utils", "torch.types", "overrides", "torch._C", "typing"], "refs": ["/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so", null, null, null], "meta": {"object_name": "relu", "object_type": "Function", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/functional.py", "module_name": "torch.nn.functional"}}, "torch.nn.functional.threshold": {"classes": [], "functions": [], "constants": [], "modules": [], "extends": [], "imports": ["modules", "_jit_internal", "torch._torch_docs", "warnings", null, "torch", "math", "modules.utils", "torch.types", "overrides", "torch._C", "typing"], "refs": ["/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so", null, null, null], "meta": {"object_name": "threshold", "object_type": "Function", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/functional.py", "module_name": "torch.nn.functional"}}, "torch._tensor.Tensor": {"classes": ["Union", "NotImplementedError", "TypeError", "AttributeError", "OrderedDict", "Dict", "Any", "DLDeviceType", "ValueError", "Number", "Tuple", "Tensor", "Optional", "NotImplemented", "Resize", "RuntimeError", "LU"], "functions": ["backward", "TypeError", "istft", "refine_names", "trim", "resize", "storage_type", "solve", "rename", "_update_names", "unzip_namedshape", "all", "norm", "is_ellipsis", "_reduce_ex_internal", "deepcopy", "int", "update_names", "issubclass", "getattr", "resize_as", "sorted", "storage", "type", "lstsq", "iter", "dict", "hasattr", "super", "single_ellipsis_index", "_convert", "has_torch_function_variadic", "rename_", "_typed_storage", "eig", "list", "unique_consecutive", "reinforce", "align_to", "check_serializing_named_tensor", "symeig", "lu", "_symeig", "len", "ValueError", "str", "stft", "to_sparse_coo", "is_shared", "RuntimeError", "split", "handle_torch_function", "dir", "NotImplementedError", "id", "register_hook", "unique", "OrderedDict", "AttributeError", "unflatten", "tuple", "_handle_torch_function_and_wrap_type_error_to_not_implemented", "get_default_nowrap_functions", "share_memory_", "resolve_ellipsis", "has_torch_function_unary", "func", "setattr", "isinstance"], "constants": ["_C"], "modules": ["_linalg_utils", "torch.autograd._functions"], "extends": ["_TensorBase"], "imports": ["torch.overrides", "copyreg", "enum", "torch.utils.hooks", "functools", "warnings", "collections", "numbers", "torch", "torch._namedtensor_internals", "_linalg_utils", "torch.autograd._functions", "torch.utils.dlpack", "copy", "torch._C", "typing"], "refs": ["/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/copyreg.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py", null, "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py", null, "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py", "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/enum.py", "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so"], "meta": {"object_name": "Tensor", "object_type": "Class", "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_tensor.py", "module_name": "torch._tensor"}}}
+{
+  "torch.utils.checkpoint.CheckpointFunction": {
+    "classes": [
+      "RuntimeError"
+    ],
+    "functions": [
+      "set_device_states",
+      "list",
+      "detach_variable",
+      "len",
+      "enumerate",
+      "check_backward_validity",
+      "forward",
+      "tuple",
+      "isinstance",
+      "get_device_states",
+      "_get_autocast_kwargs",
+      "backward",
+      "run_function",
+      "RuntimeError",
+      "range"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Function"
+    ],
+    "imports": [
+      "warnings",
+      "typing",
+      "torch",
+      "weakref"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/weakref.py"
+    ],
+    "meta": {
+      "object_name": "CheckpointFunction",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/checkpoint.py",
+      "module_name": "torch.utils.checkpoint"
+    }
+  },
+  "torch.autograd.function._SingleLevelFunction": {
+    "classes": [
+      "NotImplementedError",
+      "Tuple",
+      "FunctionMeta",
+      "Any",
+      "FunctionCtx"
+    ],
+    "functions": [
+      "NotImplementedError",
+      "forward",
+      "backward",
+      "jvp",
+      "setup_context"
+    ],
+    "constants": [
+      "_C"
+    ],
+    "modules": [],
+    "extends": [
+      "_FunctionBase",
+      "FunctionCtx",
+      "_HookMixin",
+      "FunctionMeta"
+    ],
+    "imports": [
+      "torch._C",
+      "torch._functorch",
+      "warnings",
+      "torch",
+      "functools",
+      "torch.utils.hooks",
+      "typing",
+      "torch._functorch.autograd_function",
+      "collections"
+    ],
+    "refs": [
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_functorch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py"
+    ],
+    "meta": {
+      "object_name": "_SingleLevelFunction",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/autograd/function.py",
+      "module_name": "torch.autograd.function"
+    }
+  },
+  "torch.autograd.function.Function": {
+    "classes": [
+      "NotImplementedError",
+      "RuntimeError",
+      "DeprecationWarning"
+    ],
+    "functions": [
+      "NotImplementedError",
+      "vmap",
+      "apply",
+      "super",
+      "RuntimeError",
+      "custom_function_call"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_SingleLevelFunction"
+    ],
+    "imports": [
+      "torch._C",
+      "torch._functorch",
+      "warnings",
+      "torch",
+      "functools",
+      "torch.utils.hooks",
+      "typing",
+      "torch._functorch.autograd_function",
+      "collections"
+    ],
+    "refs": [
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_functorch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py"
+    ],
+    "meta": {
+      "object_name": "Function",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/autograd/function.py",
+      "module_name": "torch.autograd.function"
+    }
+  },
+  "torch.nn.modules.activation.ReLU": {
+    "classes": [
+      "Tensor",
+      "Module",
+      "F"
+    ],
+    "functions": [
+      "forward",
+      "super",
+      "extra_repr"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Module"
+    ],
+    "imports": [
+      null,
+      "torch.nn.parameter",
+      "warnings",
+      "torch.nn.init",
+      "torch",
+      "module",
+      "linear",
+      "typing"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null
+    ],
+    "meta": {
+      "object_name": "ReLU",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/activation.py",
+      "module_name": "torch.nn.modules.activation"
+    }
+  },
+  "torch.nn.modules.activation.Threshold": {
+    "classes": [
+      "Tensor",
+      "Module",
+      "F"
+    ],
+    "functions": [
+      "forward",
+      "super",
+      "extra_repr"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Module"
+    ],
+    "imports": [
+      null,
+      "torch.nn.parameter",
+      "warnings",
+      "torch.nn.init",
+      "torch",
+      "module",
+      "linear",
+      "typing"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null
+    ],
+    "meta": {
+      "object_name": "Threshold",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/activation.py",
+      "module_name": "torch.nn.modules.activation"
+    }
+  },
+  "torch.nn.modules.conv._ConvNd": {
+    "classes": [
+      "ValueError",
+      "Tuple",
+      "Optional",
+      "Parameter",
+      "Tensor",
+      "List",
+      "Module",
+      "Union"
+    ],
+    "functions": [
+      "hasattr",
+      "any",
+      "ValueError",
+      "len",
+      "_reverse_repeat_tuple",
+      "reset_parameters",
+      "zip",
+      "extra_repr",
+      "Parameter",
+      "_conv_forward",
+      "super",
+      "isinstance",
+      "range"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Module"
+    ],
+    "imports": [
+      "common_types",
+      null,
+      "utils",
+      "torch.nn.parameter",
+      "math",
+      "lazy",
+      "warnings",
+      "torch",
+      "module",
+      "typing",
+      "torch._torch_docs"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py"
+    ],
+    "meta": {
+      "object_name": "_ConvNd",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py",
+      "module_name": "torch.nn.modules.conv"
+    }
+  },
+  "torch.nn.modules.conv.Conv1d": {
+    "classes": [
+      "F",
+      "Union",
+      "Optional",
+      "Tensor"
+    ],
+    "functions": [
+      "forward",
+      "_conv_forward",
+      "super",
+      "isinstance",
+      "_single"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_ConvNd"
+    ],
+    "imports": [
+      "common_types",
+      null,
+      "utils",
+      "torch.nn.parameter",
+      "math",
+      "lazy",
+      "warnings",
+      "torch",
+      "module",
+      "typing",
+      "torch._torch_docs"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py"
+    ],
+    "meta": {
+      "object_name": "Conv1d",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py",
+      "module_name": "torch.nn.modules.conv"
+    }
+  },
+  "torch.nn.modules.conv.Conv2d": {
+    "classes": [
+      "F",
+      "Union",
+      "Optional",
+      "Tensor"
+    ],
+    "functions": [
+      "forward",
+      "_conv_forward",
+      "super",
+      "isinstance",
+      "_pair"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_ConvNd"
+    ],
+    "imports": [
+      "common_types",
+      null,
+      "utils",
+      "torch.nn.parameter",
+      "math",
+      "lazy",
+      "warnings",
+      "torch",
+      "module",
+      "typing",
+      "torch._torch_docs"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py"
+    ],
+    "meta": {
+      "object_name": "Conv2d",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py",
+      "module_name": "torch.nn.modules.conv"
+    }
+  },
+  "torch.nn.modules.conv.Conv3d": {
+    "classes": [
+      "F",
+      "Union",
+      "Optional",
+      "Tensor"
+    ],
+    "functions": [
+      "forward",
+      "_triple",
+      "_conv_forward",
+      "super",
+      "isinstance"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_ConvNd"
+    ],
+    "imports": [
+      "common_types",
+      null,
+      "utils",
+      "torch.nn.parameter",
+      "math",
+      "lazy",
+      "warnings",
+      "torch",
+      "module",
+      "typing",
+      "torch._torch_docs"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py"
+    ],
+    "meta": {
+      "object_name": "Conv3d",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/modules/conv.py",
+      "module_name": "torch.nn.modules.conv"
+    }
+  },
+  "torch.nn.functional.relu": {
+    "classes": [
+      "relu",
+      "relu_"
+    ],
+    "functions": [
+      "handle_torch_function",
+      "relu",
+      "relu_",
+      "has_torch_function_unary"
+    ],
+    "constants": [
+      false,
+      "relu(input, inplace=False) -> Tensor\\n\\n    Applies the rectified linear unit function element-wise. See\\n    :class:`~torch.nn.ReLU` for more details.\\n    "
+    ],
+    "modules": [],
+    "extends": [],
+    "imports": [
+      null,
+      "torch._C",
+      "math",
+      "overrides",
+      "torch.types",
+      "warnings",
+      "torch",
+      "typing",
+      "_jit_internal",
+      "modules",
+      "torch._torch_docs",
+      "modules.utils"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null
+    ],
+    "meta": {
+      "object_name": "relu",
+      "object_type": "Function",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/functional.py",
+      "module_name": "torch.nn.functional"
+    }
+  },
+  "torch.nn.functional.threshold": {
+    "classes": [],
+    "functions": [],
+    "constants": [],
+    "modules": [],
+    "extends": [],
+    "imports": [
+      null,
+      "torch._C",
+      "math",
+      "overrides",
+      "torch.types",
+      "warnings",
+      "torch",
+      "typing",
+      "_jit_internal",
+      "modules",
+      "torch._torch_docs",
+      "modules.utils"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null
+    ],
+    "meta": {
+      "object_name": "threshold",
+      "object_type": "Function",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/nn/functional.py",
+      "module_name": "torch.nn.functional"
+    }
+  },
+  "torch._tensor.Tensor": {
+    "classes": [
+      "Resize",
+      "NotImplementedError",
+      "ValueError",
+      "Dict",
+      "LU",
+      "NotImplemented",
+      "Tuple",
+      "TypeError",
+      "OrderedDict",
+      "AttributeError",
+      "Union",
+      "Optional",
+      "Number",
+      "DLDeviceType",
+      "Tensor",
+      "Any",
+      "RuntimeError"
+    ],
+    "functions": [
+      "hasattr",
+      "eig",
+      "norm",
+      "_update_names",
+      "solve",
+      "issubclass",
+      "getattr",
+      "stft",
+      "storage_type",
+      "symeig",
+      "all",
+      "OrderedDict",
+      "AttributeError",
+      "get_default_nowrap_functions",
+      "iter",
+      "backward",
+      "rename",
+      "int",
+      "rename_",
+      "istft",
+      "resize",
+      "dict",
+      "is_ellipsis",
+      "reinforce",
+      "split",
+      "_reduce_ex_internal",
+      "TypeError",
+      "share_memory_",
+      "dir",
+      "func",
+      "resolve_ellipsis",
+      "lu",
+      "sorted",
+      "check_serializing_named_tensor",
+      "trim",
+      "is_shared",
+      "resize_as",
+      "unflatten",
+      "update_names",
+      "NotImplementedError",
+      "single_ellipsis_index",
+      "len",
+      "tuple",
+      "_typed_storage",
+      "lstsq",
+      "unique_consecutive",
+      "register_hook",
+      "_symeig",
+      "id",
+      "handle_torch_function",
+      "unique",
+      "RuntimeError",
+      "super",
+      "unzip_namedshape",
+      "_convert",
+      "ValueError",
+      "list",
+      "has_torch_function_unary",
+      "str",
+      "to_sparse_coo",
+      "setattr",
+      "refine_names",
+      "has_torch_function_variadic",
+      "align_to",
+      "type",
+      "deepcopy",
+      "storage",
+      "isinstance",
+      "_handle_torch_function_and_wrap_type_error_to_not_implemented"
+    ],
+    "constants": [
+      "_C"
+    ],
+    "modules": [
+      "torch.autograd._functions",
+      "_linalg_utils"
+    ],
+    "extends": [
+      "_TensorBase"
+    ],
+    "imports": [
+      "copyreg",
+      "torch.utils.dlpack",
+      "torch._C",
+      "torch.overrides",
+      "copy",
+      "_linalg_utils",
+      "numbers",
+      "warnings",
+      "torch.autograd._functions",
+      "torch._namedtensor_internals",
+      "torch",
+      "functools",
+      "torch.utils.hooks",
+      "typing",
+      "collections",
+      "enum"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/copyreg.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/enum.py",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py",
+      null
+    ],
+    "meta": {
+      "object_name": "Tensor",
+      "object_type": "Class",
+      "abs_file_path": "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_tensor.py",
+      "module_name": "torch._tensor"
+    }
+  }
+}

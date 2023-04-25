@@ -2,12 +2,18 @@ import ast
 import importlib
 import os
 from inspect import isclass, isfunction, ismethod, isbuiltin, ismodule
+from typing import List
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 from utils import to_json, is_valid_namespace, write_json_to_file
 from visitors.clazz import ClassAnalyzer, ClassRelationshipAnalyzer, SuperclassFinder
 from visitors.func import FunctionAnalyzer
 from visitors.imports import ImportCollector
 from visitors.ref import ReferenceExtractor
+
+app = FastAPI()
 
 set2 = [
     "torch.utils.checkpoint.CheckpointFunction",
@@ -156,37 +162,35 @@ def generate_metadata(package_path):
         return None
 
 
-def extract_namespaces(target):
-    if "." in target:
-        parts = target.split('.')
-        namespaces = []
-        for i in range(len(parts) - 1):
-            namespace = '.'.join(parts[:i + 1])
-            namespaces.append(namespace)
-        return namespaces
-    else:
-        return [target]
+def generate_data_for_graph(root_namespaces):
+    def extract_namespaces(target):
+        if "." in target:
+            parts = target.split('.')
+            namespaces = []
+            for i in range(len(parts) - 1):
+                __namespace = '.'.join(parts[:i + 1])
+                namespaces.append(__namespace)
+            return namespaces
+        else:
+            return [target]
 
+    def create_node(_nodes, nid, name, category_id):
+        _nodes.append({
+            "id": nid,
+            "name": name,
+            "label": {
+                "normal": {
+                    "show": True
+                }
+            },
+            "category": category_id
+        })
 
-def create_node(nodes, node_id_count, name, category_id):
-    nodes.append({
-        "id": node_id_count,
-        "name": name,
-        "label": {
-            "normal": {
-                "show": True
-            }
-        },
-        "category": category_id
-    })
-
-
-def main():
     nodes, links, categories = [], [], []
     _namespaces = set()
 
     # first derive the namespaces from the given set.
-    for p in set2:
+    for p in root_namespaces:
         x = extract_namespaces(p)
         for xi in x:
             if is_valid_namespace(xi):
@@ -196,7 +200,7 @@ def main():
 
     # then we iterate through each of the
     # target class/function/namespace.
-    for p in set2:
+    for p in root_namespaces:
         data = analyze(generate_metadata(p))
         targets = {
             **targets,
@@ -238,14 +242,26 @@ def main():
                     links_count += 1
         node_id_count += 1
 
-    write_json_to_file(to_json({
-        "nodes": nodes,
-        "links": links,
-        "categories": categories
-    }), "data/vis.json")
-
-    write_json_to_file(to_json(targets), "data/data.json")
+    return nodes, links, categories, targets
 
 
-if __name__ == '__main__':
-    main()
+class AnalyzeSetBody(BaseModel):
+    root_namespaces: List[str]
+
+
+@app.post("/analyze_set")
+async def analyze_set(data: AnalyzeSetBody):
+    try:
+
+        nodes, links, categories, targets = generate_data_for_graph(data.root_namespaces)
+        write_json_to_file(to_json({
+            "nodes": nodes,
+            "links": links,
+            "categories": categories
+        }), "data/vis.json")
+        write_json_to_file(to_json(targets), "data/data.json")
+
+        return "ok"
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
