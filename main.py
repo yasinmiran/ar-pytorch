@@ -2,6 +2,8 @@ import ast
 import importlib
 from inspect import isclass, isfunction, ismethod, isbuiltin, ismodule
 
+from analyzers.clazz import ClassAnalyzer, ClassRelationshipAnalyzer, SuperclassFinder
+
 set2 = [
     # "torch.utils.checkpoint.CheckpointFunction",
     # "torch.autograd.function._SingleLevelFunction",
@@ -45,7 +47,7 @@ def find_private_top_level_members(file_path):
 
     # note that we transform the node names to lowercase
     # because at this point we're only interested in matching
-    # a exact identifier.
+    # an exact identifier.
     for node in ast.walk(tree):
         if isinstance(node, ast.ClassDef) and node.name.startswith('_'):
             private_classes.add(node.name.lower())
@@ -55,8 +57,44 @@ def find_private_top_level_members(file_path):
     return private_classes, private_functions
 
 
-def generate_metadata():
-    pass
+def analyze_class_usages(o):
+    with open(o["abs_file_path"], 'r', encoding='utf-8') as file:
+        file_content = file.read()
+
+    tree = ast.parse(file_content)
+    analyzer = ClassAnalyzer("Conv1d")
+    analyzer.visit(tree)
+
+    return {
+        'classes': analyzer.used_classes,
+        'functions': analyzer.used_functions,
+        'constants': analyzer.used_constants,
+        'modules': analyzer.imported_modules,
+    }
+
+
+def analyze_class_relationship(file_path, base_class, target_class):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        file_content = file.read()
+
+    tree = ast.parse(file_content)
+    analyzer = ClassRelationshipAnalyzer(base_class, target_class)
+    analyzer.visit(tree)
+
+    return {
+        'extends': analyzer.extends_base_class,
+        'uses': analyzer.uses_base_class,
+    }
+
+
+def has_superclass(file_path, target_class):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        file_content = file.read()
+
+    tree = ast.parse(file_content)
+    finder = SuperclassFinder(target_class)
+    finder.visit(tree)
+    return finder.has_superclass
 
 
 def get_meta_data(package_path):
@@ -96,11 +134,8 @@ def get_meta_data(package_path):
 
 if __name__ == '__main__':
     for p in set2:
-        print(p, get_meta_data(p))
-
-    # file_path = sys.argv[1]  # Replace with your file path or pass it as a command-line argument
-    # imported_modules = find_imports(file_path)
-    # print(f"Modules imported in {file_path}: {imported_modules}")
+        meta = get_meta_data(p)
+        print(analyze_class_usages(meta))
 
 # Python dependencies required for development
 # astunparse
