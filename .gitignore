@@ -3,3 +3,5 @@ torch/torch
 .DS_Store
 .idea
 .vscode
+
+.space

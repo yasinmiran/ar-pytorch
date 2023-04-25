@@ -5,9 +5,10 @@ from inspect import isclass, isfunction, ismethod, isbuiltin, ismodule
 from typing import List
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-from utils import to_json, is_valid_namespace, write_json_to_file
+from utils import to_json, is_valid_namespace
 from visitors.clazz import ClassAnalyzer, ClassRelationshipAnalyzer, SuperclassFinder
 from visitors.func import FunctionAnalyzer
 from visitors.imports import ImportCollector
@@ -245,6 +246,32 @@ def generate_data_for_graph(root_namespaces):
     return nodes, links, categories, targets
 
 
+def gen_graph(json_data):
+    nodes = json_data["nodes"]
+    links = json_data["links"]
+    categories = json_data["categories"]
+
+    from pyecharts import options as opts
+    from pyecharts.charts import Graph
+
+    return Graph(init_opts=opts.InitOpts(width="1000px", height="600px")) \
+        .add(
+        "",
+        nodes=nodes,
+        links=links,
+        categories=categories,
+        layout="circular",
+        is_rotate_label=True,
+        linestyle_opts=opts.LineStyleOpts(color="source", curve=0.3),
+        label_opts=opts.LabelOpts(position="right"),
+    ) \
+        .set_global_opts(
+        title_opts=opts.TitleOpts(title="PyTorch Architecture Recovery"),
+        legend_opts=opts.LegendOpts(orient="vertical", pos_left="2%", pos_top="20%"),
+    ) \
+        .render_embed()
+
+
 class AnalyzeSetBody(BaseModel):
     root_namespaces: List[str]
 
@@ -252,16 +279,12 @@ class AnalyzeSetBody(BaseModel):
 @app.post("/analyze_set")
 async def analyze_set(data: AnalyzeSetBody):
     try:
-
         nodes, links, categories, targets = generate_data_for_graph(data.root_namespaces)
-        write_json_to_file(to_json({
+        html = gen_graph(to_json({
             "nodes": nodes,
             "links": links,
             "categories": categories
-        }), "data/vis.json")
-        write_json_to_file(to_json(targets), "data/data.json")
-
-        return "ok"
-
+        }))
+        return HTMLResponse(content=html)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
