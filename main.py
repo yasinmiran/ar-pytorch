@@ -1,13 +1,11 @@
 import ast
-import builtins
 import importlib
-import json
 import os
-import re
-import sys
 from inspect import isclass, isfunction, ismethod, isbuiltin, ismodule
 
+from utils import to_json, is_valid_namespace, write_json_to_file
 from visitors.clazz import ClassAnalyzer, ClassRelationshipAnalyzer, SuperclassFinder
+from visitors.func import FunctionAnalyzer
 from visitors.imports import ImportCollector
 from visitors.ref import ReferenceExtractor
 
@@ -25,39 +23,18 @@ set2 = [
     "torch.nn.functional.threshold",
     "torch._tensor.Tensor",
 ]
-namespaces = [
-    "torch",
-    "torch.utils",
-    "torch.utils.checkpoint",
-    "torch.autograd.function._SingleLevelFunction",
-    "torch.autograd.function.Function",
-    "torch.nn.modules.activation.ReLU",
-    "torch.nn.modules.activation.Threshold",
-    "torch.nn.modules.conv._ConvNd",
-    "torch.nn.modules.conv.Conv1d",
-    "torch.nn.modules.conv.Conv2d",
-    "torch.nn.modules.conv.Conv3d",
-    "torch.nn.functional.relu",
-    "torch.nn.functional.threshold",
-    "torch._tensor.Tensor",
-]
 
 
 def analyze(o):
     usages = check_class_usages(o)
-    _, extends = check_superclasses(o)
+    extends = check_superclasses(o)
     imports = check_module_imports(o)
-    refs = check_referenced_modules(o)
-
-    paths = []
-    for r in refs:
-        paths.append(find_module_path(r))
-
+    refs = [find_module_path(r) for r in check_referenced_modules(o)]
     return {
         **usages,
         "extends": extends,
         "imports": imports,
-        "refs": paths,
+        "refs": refs,
         "meta": o
     }
 
@@ -86,7 +63,10 @@ def check_class_usages(o):
         for child in ast.iter_child_nodes(node):
             child.parent = node
 
-    analyzer = ClassAnalyzer(o["object_name"])
+    analyzer = FunctionAnalyzer(o["object_name"]) \
+        if o["object_type"] == "Function" \
+        else ClassAnalyzer(o["object_name"])
+
     analyzer.visit(tree)
 
     return {
@@ -118,7 +98,7 @@ def check_superclasses(o):
     tree = ast.parse(file_content)
     finder = SuperclassFinder(o["object_name"])
     finder.visit(tree)
-    return finder.has_superclass, finder.superclass_names
+    return finder.superclass_names
 
 
 def check_module_imports(o):
@@ -176,46 +156,6 @@ def generate_metadata(package_path):
         return None
 
 
-def write_json_to_file(json_obj, file_name):
-    with open(file_name, 'w') as f:
-        json.dump(json_obj, f)
-
-
-def to_json(data):
-    if isinstance(data, dict):
-        return {to_json(k): to_json(v) for k, v in data.items()}
-    elif isinstance(data, list):
-        return [to_json(elem) for elem in data]
-    elif isinstance(data, tuple):
-        return tuple(to_json(elem) for elem in data)
-    elif isinstance(data, set):
-        return [to_json(elem) for elem in data]
-    elif isinstance(data, str):
-        return data.encode('unicode_escape').decode()
-    elif isinstance(data, bytes):
-        return data.decode('unicode_escape')
-    elif isinstance(data, (int, float, bool, type(None))):
-        return data
-    else:
-        return str(data)
-
-
-def convert_sets_to_lists(data):
-    if isinstance(data, dict):
-        return {k: convert_sets_to_lists(v) for k, v in data.items()}
-    elif isinstance(data, set):
-        return list(data)
-    elif isinstance(data, (list, tuple)):
-        return [convert_sets_to_lists(item) for item in data]
-    else:
-        return data
-
-
-def match_string_within_string(string, pattern):
-    matches = re.findall(pattern, string)
-    return matches
-
-
 def extract_namespaces(target):
     if "." in target:
         parts = target.split('.')
@@ -241,49 +181,15 @@ def create_node(nodes, node_id_count, name, category_id):
     })
 
 
-def is_builtin(module_name: str) -> bool:
-    if module_name in sys.builtin_module_names:
-        return True
-    if module_name in sys.modules:
-        module = sys.modules[module_name]
-        return module.__name__ in sys.builtin_module_names or \
-            module.__name__ == builtins.__name__
-    return False
-
-
-def is_standard_library(module_name: str) -> bool:
-    if module_name is None or module_name.startswith('.'):
-        return False
-    if module_name in sys.builtin_module_names:
-        return True
-    try:
-        module = importlib.import_module(module_name)
-    except ModuleNotFoundError:
-        return False
-
-    module_file = getattr(module, "__file__", None)
-
-    if module_file is None:
-        return False
-
-    return module_file.startswith(os.path.dirname(os.__file__))
-
-
 def main():
-    nodes = []
-    links = []
-    categories = []
-    node_id_count = 0
-
-    # namespaces are the categories
+    nodes, links, categories = [], [], []
     _namespaces = set()
 
     # first derive the namespaces from the given set.
     for p in set2:
         x = extract_namespaces(p)
         for xi in x:
-            if xi is not None and xi != "null" and \
-                    not is_builtin(xi) and not is_standard_library(xi):
+            if is_valid_namespace(xi):
                 _namespaces.add(xi)
 
     targets = {}
@@ -300,8 +206,7 @@ def main():
     # create the node for ech namespaces with the imports.
     for key, value in targets.items():
         for i in targets[key]["imports"]:
-            if i is not None and i != "null" and not is_builtin(i) \
-                    and not is_standard_library(i):
+            if is_valid_namespace(i):
                 _namespaces.add(i)
 
     # track the initial namespaces.
@@ -309,6 +214,8 @@ def main():
     for n in _namespaces:
         categories.append({"id": category_id_count, "name": n})
         category_id_count += 1
+
+    node_id_count = 0
 
     for namespace in _namespaces:
         create_node(nodes, node_id_count, namespace, namespace)
@@ -335,27 +242,10 @@ def main():
         "nodes": nodes,
         "links": links,
         "categories": categories
-    }), "vis.json")
+    }), "data/vis.json")
 
-    write_json_to_file(to_json(targets), "data.json")
+    write_json_to_file(to_json(targets), "data/data.json")
 
 
 if __name__ == '__main__':
     main()
-
-# Python dependencies required for development
-# astunparse
-# expecttest
-# hypothesis
-# numpy
-# psutil
-# pyyaml
-# requests
-# setuptools
-# types-dataclasses
-# typing-extensions
-# sympy
-# filelock
-# networkx
-# jinja2
-# fsspec
