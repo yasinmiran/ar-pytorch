@@ -1,0 +1,632 @@
+{
+  "torch": {
+    "classes": [],
+    "functions": [],
+    "constants": [],
+    "modules": [],
+    "extends": [],
+    "imports": [
+      "ctypes",
+      "torch._ops",
+      "torch._inductor",
+      "torch.multiprocessing._atfork",
+      "torch._C",
+      "random",
+      "torch._dynamo",
+      "builtins",
+      "torch.cuda._sanitizer",
+      "torch._C._VariableFunctions",
+      "torch.amp",
+      "torch.utils.data",
+      "serialization",
+      "warnings",
+      "torch._classes",
+      "torch.autograd",
+      "torch.nn.intrinsic",
+      "math",
+      "torch.nn.quantized",
+      null,
+      "torch.backends.mps",
+      "torch.nn.quantizable",
+      "torch.backends.mkldnn",
+      "overrides",
+      "torch",
+      "_tensor",
+      "torch.utils.dlpack",
+      "torch.backends.cuda",
+      "_linalg_utils",
+      "torch.utils._device",
+      "_utils_internal",
+      "torch.optim._multi_tensor",
+      "glob",
+      "torch.backends.quantized",
+      "inspect",
+      "_tensor_str",
+      "torch.nn.qat",
+      "_utils",
+      "storage",
+      "textwrap",
+      "platform",
+      "torch.backends.mkl",
+      "_lobpcg",
+      "os",
+      "torch.signal",
+      "functional",
+      "sys",
+      "torch.fx.experimental.symbolic_shapes",
+      "version",
+      "torch.func",
+      "torch_version",
+      "torch.utils.backcompat",
+      "torch._inductor.compile_fx",
+      "typing",
+      "torch.backends.cudnn",
+      "torch.backends.openmp"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ctypes/__init__.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/os.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/glob.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/inspect.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_inductor/config.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/cuda/_sanitizer.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/textwrap.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/platform.py"
+    ]
+  },
+  "torch.utils.checkpoint.CheckpointFunction": {
+    "classes": [
+      "RuntimeError"
+    ],
+    "functions": [
+      "RuntimeError",
+      "backward",
+      "_get_autocast_kwargs",
+      "enumerate",
+      "detach_variable",
+      "tuple",
+      "len",
+      "list",
+      "isinstance",
+      "get_device_states",
+      "range",
+      "check_backward_validity",
+      "set_device_states",
+      "forward",
+      "run_function"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Function"
+    ],
+    "imports": [
+      "warnings",
+      "typing",
+      "torch",
+      "weakref"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/weakref.py"
+    ]
+  },
+  "torch.autograd.function._SingleLevelFunction": {
+    "classes": [
+      "Any",
+      "Tuple",
+      "FunctionMeta",
+      "FunctionCtx",
+      "NotImplementedError"
+    ],
+    "functions": [
+      "backward",
+      "jvp",
+      "setup_context",
+      "NotImplementedError",
+      "forward"
+    ],
+    "constants": [
+      "_C"
+    ],
+    "modules": [],
+    "extends": [
+      "_FunctionBase",
+      "FunctionCtx",
+      "_HookMixin",
+      "FunctionMeta"
+    ],
+    "imports": [
+      "torch._C",
+      "typing",
+      "functools",
+      "torch",
+      "collections",
+      "torch._functorch.autograd_function",
+      "torch.utils.hooks",
+      "warnings",
+      "torch._functorch"
+    ],
+    "refs": [
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_functorch/__init__.py"
+    ]
+  },
+  "torch.autograd.function.Function": {
+    "classes": [
+      "DeprecationWarning",
+      "RuntimeError",
+      "NotImplementedError"
+    ],
+    "functions": [
+      "RuntimeError",
+      "vmap",
+      "custom_function_call",
+      "super",
+      "apply",
+      "NotImplementedError"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_SingleLevelFunction"
+    ],
+    "imports": [
+      "torch._C",
+      "typing",
+      "functools",
+      "torch",
+      "collections",
+      "torch._functorch.autograd_function",
+      "torch.utils.hooks",
+      "warnings",
+      "torch._functorch"
+    ],
+    "refs": [
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_functorch/__init__.py"
+    ]
+  },
+  "torch.nn.modules.activation.ReLU": {
+    "classes": [
+      "Tensor",
+      "F",
+      "Module"
+    ],
+    "functions": [
+      "forward",
+      "super",
+      "extra_repr"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Module"
+    ],
+    "imports": [
+      null,
+      "torch.nn.init",
+      "typing",
+      "torch",
+      "torch.nn.parameter",
+      "linear",
+      "module",
+      "warnings"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py"
+    ]
+  },
+  "torch.nn.modules.activation.Threshold": {
+    "classes": [
+      "Tensor",
+      "F",
+      "Module"
+    ],
+    "functions": [
+      "forward",
+      "super",
+      "extra_repr"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Module"
+    ],
+    "imports": [
+      null,
+      "torch.nn.init",
+      "typing",
+      "torch",
+      "torch.nn.parameter",
+      "linear",
+      "module",
+      "warnings"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py"
+    ]
+  },
+  "torch.nn.modules.conv._ConvNd": {
+    "classes": [
+      "Optional",
+      "Tuple",
+      "List",
+      "ValueError",
+      "Parameter",
+      "Tensor",
+      "Union",
+      "Module"
+    ],
+    "functions": [
+      "zip",
+      "any",
+      "super",
+      "len",
+      "isinstance",
+      "ValueError",
+      "_conv_forward",
+      "Parameter",
+      "range",
+      "hasattr",
+      "_reverse_repeat_tuple",
+      "reset_parameters",
+      "extra_repr"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "Module"
+    ],
+    "imports": [
+      "utils",
+      "math",
+      null,
+      "typing",
+      "torch",
+      "torch.nn.parameter",
+      "common_types",
+      "torch._torch_docs",
+      "module",
+      "warnings",
+      "lazy"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null
+    ]
+  },
+  "torch.nn.modules.conv.Conv1d": {
+    "classes": [
+      "Union",
+      "Tensor",
+      "Optional",
+      "F"
+    ],
+    "functions": [
+      "_single",
+      "super",
+      "isinstance",
+      "_conv_forward",
+      "forward"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_ConvNd"
+    ],
+    "imports": [
+      "utils",
+      "math",
+      null,
+      "typing",
+      "torch",
+      "torch.nn.parameter",
+      "common_types",
+      "torch._torch_docs",
+      "module",
+      "warnings",
+      "lazy"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null
+    ]
+  },
+  "torch.nn.modules.conv.Conv2d": {
+    "classes": [
+      "Union",
+      "Tensor",
+      "Optional",
+      "F"
+    ],
+    "functions": [
+      "super",
+      "isinstance",
+      "_conv_forward",
+      "forward",
+      "_pair"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_ConvNd"
+    ],
+    "imports": [
+      "utils",
+      "math",
+      null,
+      "typing",
+      "torch",
+      "torch.nn.parameter",
+      "common_types",
+      "torch._torch_docs",
+      "module",
+      "warnings",
+      "lazy"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null
+    ]
+  },
+  "torch.nn.modules.conv.Conv3d": {
+    "classes": [
+      "Union",
+      "Tensor",
+      "Optional",
+      "F"
+    ],
+    "functions": [
+      "_triple",
+      "super",
+      "isinstance",
+      "_conv_forward",
+      "forward"
+    ],
+    "constants": [],
+    "modules": [],
+    "extends": [
+      "_ConvNd"
+    ],
+    "imports": [
+      "utils",
+      "math",
+      null,
+      "typing",
+      "torch",
+      "torch.nn.parameter",
+      "common_types",
+      "torch._torch_docs",
+      "module",
+      "warnings",
+      "lazy"
+    ],
+    "refs": [
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      null
+    ]
+  },
+  "torch.nn.functional.relu": {
+    "classes": [],
+    "functions": [],
+    "constants": [],
+    "modules": [],
+    "extends": [],
+    "imports": [
+      "math",
+      null,
+      "overrides",
+      "torch._C",
+      "torch",
+      "torch._torch_docs",
+      "_jit_internal",
+      "modules.utils",
+      "modules",
+      "typing",
+      "torch.types",
+      "warnings"
+    ],
+    "refs": [
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py"
+    ]
+  },
+  "torch.nn.functional.threshold": {
+    "classes": [],
+    "functions": [],
+    "constants": [],
+    "modules": [],
+    "extends": [],
+    "imports": [
+      "math",
+      null,
+      "overrides",
+      "torch._C",
+      "torch",
+      "torch._torch_docs",
+      "_jit_internal",
+      "modules.utils",
+      "modules",
+      "typing",
+      "torch.types",
+      "warnings"
+    ],
+    "refs": [
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload/math.cpython-39-darwin.so",
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      null,
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py"
+    ]
+  },
+  "torch._tensor.Tensor": {
+    "classes": [
+      "Dict",
+      "RuntimeError",
+      "Any",
+      "Optional",
+      "TypeError",
+      "AttributeError",
+      "DLDeviceType",
+      "Resize",
+      "Number",
+      "OrderedDict",
+      "Tuple",
+      "NotImplemented",
+      "ValueError",
+      "LU",
+      "Tensor",
+      "Union",
+      "NotImplementedError"
+    ],
+    "functions": [
+      "RuntimeError",
+      "backward",
+      "resize",
+      "_update_names",
+      "to_sparse_coo",
+      "eig",
+      "int",
+      "istft",
+      "_handle_torch_function_and_wrap_type_error_to_not_implemented",
+      "list",
+      "split",
+      "register_hook",
+      "resolve_ellipsis",
+      "issubclass",
+      "align_to",
+      "ValueError",
+      "trim",
+      "dict",
+      "hasattr",
+      "deepcopy",
+      "NotImplementedError",
+      "is_shared",
+      "check_serializing_named_tensor",
+      "lstsq",
+      "share_memory_",
+      "_symeig",
+      "unflatten",
+      "TypeError",
+      "unique_consecutive",
+      "single_ellipsis_index",
+      "symeig",
+      "all",
+      "is_ellipsis",
+      "OrderedDict",
+      "tuple",
+      "len",
+      "unzip_namedshape",
+      "solve",
+      "dir",
+      "_typed_storage",
+      "has_torch_function_variadic",
+      "_convert",
+      "storage_type",
+      "has_torch_function_unary",
+      "setattr",
+      "reinforce",
+      "norm",
+      "func",
+      "get_default_nowrap_functions",
+      "_reduce_ex_internal",
+      "super",
+      "unique",
+      "storage",
+      "getattr",
+      "refine_names",
+      "type",
+      "sorted",
+      "lu",
+      "AttributeError",
+      "rename",
+      "handle_torch_function",
+      "update_names",
+      "str",
+      "isinstance",
+      "resize_as",
+      "stft",
+      "iter",
+      "rename_",
+      "id"
+    ],
+    "constants": [
+      "_C"
+    ],
+    "modules": [
+      "_linalg_utils",
+      "torch.autograd._functions"
+    ],
+    "extends": [
+      "_TensorBase"
+    ],
+    "imports": [
+      "torch.overrides",
+      "copy",
+      "torch._C",
+      "typing",
+      "functools",
+      "torch",
+      "collections",
+      "torch._namedtensor_internals",
+      "torch.utils.dlpack",
+      "torch.utils.hooks",
+      "_linalg_utils",
+      "torch.autograd._functions",
+      "warnings",
+      "numbers",
+      "enum",
+      "copyreg"
+    ],
+    "refs": [
+      null,
+      null,
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/_C.cpython-39-darwin.so",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/__init__.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/functools.py",
+      "/Users/yasin/PycharmProjects/crbs/venv/lib/python3.9/site-packages/torch/utils/hooks.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/warnings.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/enum.py",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/copyreg.py"
+    ]
+  }
+}

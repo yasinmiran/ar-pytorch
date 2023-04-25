@@ -21,7 +21,8 @@ class ClassAnalyzer(ast.NodeVisitor):
 
     def visit_FunctionDef(self, node):
         if self.in_target_class:
-            self.used_functions.add(node.name)
+            if not node.name.startswith("__"):
+                self.used_functions.add(node.name)
         self.generic_visit(node)
 
     def visit_Call(self, node):
@@ -74,17 +75,27 @@ class ClassRelationshipAnalyzer(ast.NodeVisitor):
         self.generic_visit(node)
 
 
-import ast
-
-
 class SuperclassFinder(ast.NodeVisitor):
+
     def __init__(self, target_class):
         self.target_class = target_class
         self.has_superclass = False
+        self.superclass_names = []
 
     def visit_ClassDef(self, node):
         if node.name == self.target_class:
-            self.has_superclass = len(node.bases) > 0
-
-
-
+            self.has_superclass = True
+            for base in node.bases:
+                if isinstance(base, ast.Name):
+                    self.superclass_names.append(base.id)
+                elif isinstance(base, ast.Attribute):
+                    # self.superclass_names.append(f"{base.value.id}.{base.attr}")
+                    self.superclass_names.append(base.attr)
+            for keyword in node.keywords:
+                if keyword.arg == "metaclass":
+                    if isinstance(keyword.value, ast.Name):
+                        # self.superclass_names.append(f"metaclass={keyword.value.id}")
+                        self.superclass_names.append(keyword.value.id)
+                    elif isinstance(keyword.value, ast.Attribute):
+                        # self.superclass_names.append(f"metaclass={keyword.value.value.id}.{keyword.value.attr}")
+                        self.superclass_names.append(keyword.value.attr)
