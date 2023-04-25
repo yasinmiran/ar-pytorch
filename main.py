@@ -3,18 +3,18 @@ import importlib
 from inspect import isclass, isfunction, ismethod, isbuiltin, ismodule
 
 set2 = [
-    "torch.utils.checkpoint.CheckpointFunction",
-    "torch.autograd.function._SingleLevelFunction",
-    "torch.autograd.function.Function",
-    "torch.nn.modules.activation.ReLU",
-    "torch.nn.modules.activation.Threshold",
+    # "torch.utils.checkpoint.CheckpointFunction",
+    # "torch.autograd.function._SingleLevelFunction",
+    # "torch.autograd.function.Function",
+    # "torch.nn.modules.activation.ReLU",
+    # "torch.nn.modules.activation.Threshold",
     "torch.nn.modules.conv._Convnd",
     "torch.nn.modules.conv.Conv1d",
     "torch.nn.modules.conv.Conv2d",
     "torch.nn.modules.conv.Conv3d",
-    "torch.nn.functional.relu",
-    "torch.nn.functional.threshold",
-    "torch._tensor.Tensor",
+    # "torch.nn.functional.relu",
+    # "torch.nn.functional.threshold",
+    # "torch._tensor.Tensor",
 ]
 
 
@@ -40,42 +40,55 @@ def find_private_top_level_members(file_path):
 
     tree = ast.parse(file_content)
 
-    private_classes = []
-    private_functions = []
+    private_classes = set()
+    private_functions = set()
 
+    # note that we transform the node names to lowercase
+    # because at this point we're only interested in matching
+    # a exact identifier.
     for node in ast.walk(tree):
         if isinstance(node, ast.ClassDef) and node.name.startswith('_'):
-            private_classes.append(node.name)
+            private_classes.add(node.name.lower())
         elif isinstance(node, ast.FunctionDef) and node.name.startswith('_'):
-            private_functions.append(node.name)
+            private_functions.add(node.name.lower())
 
     return private_classes, private_functions
 
 
-# figure out the type of the target object
-def identify_object_type(package_path):
-    module_path, obj_name = package_path.rsplit('.', 1)
+def generate_metadata():
+    pass
 
+
+def get_meta_data(package_path):
+    module_path, obj_name = package_path.rsplit('.', 1)
+    meta = {}
     try:
         module = importlib.import_module(module_path)
+        object_type = "Unknown"
         if str(obj_name).startswith("_"):
-            clzzes, funcs = find_private_top_level_members(module.__file__)
-            print(clzzes, funcs)
-            return "Class" if len(clzzes) > 0 else "Function"
+            meta["is_protected"] = True
+            classes, funcs = find_private_top_level_members(module.__file__)
+            if str(obj_name).lower() in classes:
+                object_type = "Class"
+            elif str(obj_name).lower() in funcs:
+                object_type = "Function"
         else:
+            meta["is_protected"] = False
             obj = getattr(module, obj_name)
             if isclass(obj):
-                return "Class"
+                object_type = "Class"
             elif isfunction(obj):
-                return "Function"
+                object_type = "Function"
             elif ismethod(obj):
-                return "Method"
+                object_type = "Method"
             elif isbuiltin(obj):
-                return "Builtin Function or Method"
+                object_type = "Builtin Function or Method"
             elif ismodule(obj):
-                return "Module"
-            else:
-                return "Unknown"
+                object_type = "Module"
+        meta["object_type"] = object_type
+        meta["abs_file_path"] = module.__file__
+        meta["module_name"] = module.__name__
+        return meta
     except (ModuleNotFoundError, AttributeError) as e:
         print(f"Error: {e}")
         return None
@@ -83,7 +96,7 @@ def identify_object_type(package_path):
 
 if __name__ == '__main__':
     for p in set2:
-        print(identify_object_type(p))
+        print(p, get_meta_data(p))
 
     # file_path = sys.argv[1]  # Replace with your file path or pass it as a command-line argument
     # imported_modules = find_imports(file_path)
