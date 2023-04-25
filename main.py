@@ -58,25 +58,27 @@ def identify_object_type(package_path):
 
     try:
         module = importlib.import_module(module_path)
-        print(find_private_top_level_members(module.__file__))
-        obj = getattr(module, obj_name)
-        print(module.__file__)
+        if str(obj_name).startswith("_"):
+            clzzes, funcs = find_private_top_level_members(module.__file__)
+            print(clzzes, funcs)
+            return "Class" if len(clzzes) > 0 else "Function"
+        else:
+            obj = getattr(module, obj_name)
+            if isclass(obj):
+                return "Class"
+            elif isfunction(obj):
+                return "Function"
+            elif ismethod(obj):
+                return "Method"
+            elif isbuiltin(obj):
+                return "Builtin Function or Method"
+            elif ismodule(obj):
+                return "Module"
+            else:
+                return "Unknown"
     except (ModuleNotFoundError, AttributeError) as e:
         print(f"Error: {e}")
         return None
-
-    if isclass(obj):
-        return "Class"
-    elif isfunction(obj):
-        return "Function"
-    elif ismethod(obj):
-        return "Method"
-    elif isbuiltin(obj):
-        return "Builtin Function or Method"
-    elif ismodule(obj):
-        return "Module"
-    else:
-        return "Unknown"
 
 
 if __name__ == '__main__':
