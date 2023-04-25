@@ -254,7 +254,8 @@ def gen_graph(json_data):
     from pyecharts import options as opts
     from pyecharts.charts import Graph
 
-    return Graph(init_opts=opts.InitOpts(width="1000px", height="600px")) \
+    return Graph(
+        init_opts=opts.InitOpts(width="1000px", height="1000px", is_horizontal_center=True)) \
         .add(
         "",
         nodes=nodes,
@@ -263,17 +264,30 @@ def gen_graph(json_data):
         layout="circular",
         is_rotate_label=True,
         linestyle_opts=opts.LineStyleOpts(color="source", curve=0.3),
-        label_opts=opts.LabelOpts(position="right"),
+        label_opts=opts.LabelOpts(position="bottom", font_size=14),  # Increase the text size
     ) \
         .set_global_opts(
-        title_opts=opts.TitleOpts(title="PyTorch Architecture Recovery"),
-        legend_opts=opts.LegendOpts(orient="vertical", pos_left="2%", pos_top="20%"),
+        title_opts=opts.TitleOpts(
+            title="PyTorch Architecture Recovery",
+            pos_top="30px",  # Add a top margin to the title
+            title_textstyle_opts=opts.TextStyleOpts(font_size=24),  # Increase title font size
+        ),
+        legend_opts=opts.LegendOpts(
+            pos_top="80px", orient="vertical", pos_left="2%"
+        ),
     ) \
         .render_embed()
 
 
 class AnalyzeSetBody(BaseModel):
     root_namespaces: List[str]
+
+
+@app.get("/", response_class=HTMLResponse)
+async def serve_index():
+    with open("index.html", "r") as file:
+        content = file.read()
+    return HTMLResponse(content=content)
 
 
 @app.post("/analyze_set")
