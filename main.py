@@ -4,14 +4,17 @@ import os
 from inspect import isclass, isfunction, ismethod, isbuiltin, ismodule
 from typing import List
 
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+from torch.nn.modules import linear
 
 from utils import to_json, is_valid_namespace, write_json_to_file
 from visitors.clazz import ClassAnalyzer, ClassRelationshipAnalyzer, SuperclassFinder
 from visitors.func import FunctionAnalyzer
 from visitors.imports import ImportCollector
+from visitors.mod import ModuleAnalyzer
 from visitors.ref import ReferenceExtractor
 
 app = FastAPI()
@@ -35,12 +38,31 @@ set2 = [
 def analyze(o):
     usages = check_class_usages(o)
     extends = check_superclasses(o)
-    imports = check_module_imports(o)
+    import_statements, modules = check_module_imports(o)
+    modules = check_modules(modules)
     refs = [find_module_path(r) for r in check_referenced_modules(o)]
+
+    def find_module_by_name(name):
+        for m in modules:
+            if m["import_identifier"] == name:
+                return m
+
+    filtered_imports = set()
+    for i in import_statements:
+        mod = find_module_by_name(i)
+        if mod is not None:
+            a, b = set(mod["classes"]), set(usages["classes"])
+            c = b.intersection(a)
+            if c is not None and len(c) > 0:
+                filtered_imports.add(i)
+        else:
+            filtered_imports.add(i)
+
     return {
         **usages,
         "extends": extends,
-        "imports": imports,
+        "imports": filtered_imports,
+        "module_info": modules,
         "refs": refs,
         "meta": o
     }
@@ -58,6 +80,25 @@ def find_module_path(module_name):
     return os.path.abspath(module.__file__)
 
 
+def check_modules(modules):
+    mods = []
+    for m in modules:
+        with open(m["abs_file_path"], 'r', encoding='utf-8') as file:
+            file_content = file.read()
+        tree = ast.parse(file_content)
+        ast.fix_missing_locations(tree)
+        analyzer = ModuleAnalyzer()
+        analyzer.visit(tree)
+        mods.append({
+            "import_identifier": f"{m['module_name']}.{m['object_name']}",
+            "module_name": m["module_name"],
+            "object_name": m["object_name"],
+            "classes": analyzer.top_level_classes,
+            "functions": analyzer.top_level_functions,
+        })
+    return mods
+
+
 def check_class_usages(o):
     with open(o["abs_file_path"], 'r', encoding='utf-8') as file:
         file_content = file.read()
@@ -70,9 +111,10 @@ def check_class_usages(o):
         for child in ast.iter_child_nodes(node):
             child.parent = node
 
-    analyzer = FunctionAnalyzer(o["object_name"]) \
-        if o["object_type"] == "Function" \
-        else ClassAnalyzer(o["object_name"])
+    if o["object_type"] == "Function":
+        analyzer = FunctionAnalyzer(o["object_name"])
+    else:
+        analyzer = ClassAnalyzer(o["object_name"])
 
     analyzer.visit(tree)
 
@@ -115,7 +157,16 @@ def check_module_imports(o):
     tree = ast.parse(file_content)
     collector = ImportCollector()
     collector.visit(tree)
-    return collector.imported_modules
+
+    module_imports = []
+    if collector.imported_modules is not None:
+        for imp in collector.imported_modules:
+            if imp is not None and "." in imp:
+                met = generate_metadata(imp)
+                if met is not None and met["object_type"] == "Module":
+                    module_imports.append(met)
+
+    return collector.imported_modules, module_imports
 
 
 def check_referenced_modules(o):
@@ -136,30 +187,39 @@ def generate_metadata(package_path):
         module_path, obj_name = package_path, package_path
     metadata = {}
     try:
-        module = importlib.import_module(module_path)
-        obj = getattr(module, obj_name)
 
         object_type = "Unknown"
 
-        if isclass(obj):
-            object_type = "Class"
-        elif isfunction(obj):
-            object_type = "Function"
-        elif ismethod(obj):
-            object_type = "Method"
-        elif isbuiltin(obj):
-            object_type = "Builtin Function or Method"
-        elif ismodule(obj):
+        module = importlib.import_module(module_path)
+
+        if module.__name__ == obj_name:
             object_type = "Module"
+        else:
+            obj = getattr(module, obj_name)
+            if isclass(obj):
+                object_type = "Class"
+            elif isfunction(obj):
+                object_type = "Function"
+            elif ismethod(obj):
+                object_type = "Method"
+            elif isbuiltin(obj):
+                object_type = "Builtin Function or Method"
+            elif ismodule(obj):
+                object_type = "Module"
 
         metadata["object_name"] = obj_name
         metadata["object_type"] = object_type
-        metadata["abs_file_path"] = str(module.__file__)
+        potential_module_path = str(module.__file__).replace("__init__.py", f"{obj_name}.py")
+        if module.__file__.endswith("__init__.py") and os.path.exists(potential_module_path):
+            metadata["abs_file_path"] = potential_module_path
+        else:
+            metadata["abs_file_path"] = str(module.__file__)
         metadata["module_name"] = str(module.__name__)
+        metadata["module_identifier"] = f"{str(module.__name__)}.{obj_name}"
         return metadata
 
     except (ModuleNotFoundError, AttributeError) as e:
-        print(f"Error: {e}")
+        print(f"Error : {e}", package_path)
         return None
 
 
@@ -300,8 +360,12 @@ async def analyze_set(data: AnalyzeSetBody):
             "categories": categories
         }))
         # write_json_to_file(to_json({"nodes":nodes, "links":links, "categories":categories}), "data/viz.json")
-        # write_json_to_file(to_json(targets), "data/raw.json")
+        write_json_to_file(to_json(targets), "data/raw.json")
         return HTMLResponse(content=html)
     except Exception as e:
         print(e)
         raise HTTPException(status_code=400, detail=str(e))
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
