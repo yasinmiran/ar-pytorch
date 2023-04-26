@@ -59,5 +59,5 @@ def is_valid_namespace(x) -> bool:
 
 
 def write_json_to_file(json_obj, file_name):
-    with open(file_name, 'w') as f:
+    with open(file_name, 'w+') as f:
         json.dump(json_obj, f)

@@ -20,17 +20,44 @@
 
         form {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <form id="json-form">
-        <h1 class="text-center mb-4">Submit JSON</h1>
+        <h1 class="text-center mb-4">PyTorch Architecture Recovery</h1>
         <div class="form-group">
-            <label for="json-input">JSON Input:</label>
-            <textarea class="form-control" id="json-input" rows="5" required></textarea>
+            <label for="json-input">Submit Namespace:</label>
+            <textarea class="form-control" id="json-input" rows="10" required>
+{
+    "root_namespaces": [
+        "torch.utils.checkpoint.CheckpointFunction",
+        "torch.autograd.function._SingleLevelFunction",
+        "torch.autograd.function.Function",
+        "torch.nn.modules.activation.ReLU",
+        "torch.nn.modules.activation.Threshold",
+        "torch.nn.modules.conv._ConvNd",
+        "torch.nn.modules.conv.Conv1d",
+        "torch.nn.modules.conv.Conv2d",
+        "torch.nn.modules.conv.Conv3d",
+        "torch.nn.functional.relu",
+        "torch.nn.functional.threshold",
+        "torch._tensor.Tensor",
+        "torch.nn.modules.rnn.RNNBase",
+        "torch.nn.modules.rnn.RNN",
+        "torch.nn.modules.rnn.LSTM",
+        "torch.nn.modules.rnn.GRU",
+        "torch.nn.modules.activation.Softmax",
+        "torch.nn.modules.activation.Softmin",
+        "torch.nn.modules.activation.MultiheadAttention",
+        "torch.nn.modules.transformer.TransformerEncoderLayer",
+        "torch.nn.modules.transformer.TransformerDecoderLayer",
+        "torch.nn.functional.softmax",
+        "torch.nn.functional.softmin"
+    ]
+}</textarea>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Submit</button>

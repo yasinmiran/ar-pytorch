@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-from utils import to_json, is_valid_namespace
+from utils import to_json, is_valid_namespace, write_json_to_file
 from visitors.clazz import ClassAnalyzer, ClassRelationshipAnalyzer, SuperclassFinder
 from visitors.func import FunctionAnalyzer
 from visitors.imports import ImportCollector
@@ -168,8 +168,8 @@ def generate_data_for_graph(root_namespaces):
         if "." in target:
             parts = target.split('.')
             namespaces = []
-            for i in range(len(parts) - 1):
-                __namespace = '.'.join(parts[:i + 1])
+            for index in range(len(parts) - 1):
+                __namespace = '.'.join(parts[:index + 1])
                 namespaces.append(__namespace)
             return namespaces
         else:
@@ -299,6 +299,9 @@ async def analyze_set(data: AnalyzeSetBody):
             "links": links,
             "categories": categories
         }))
+        # write_json_to_file(to_json({"nodes":nodes, "links":links, "categories":categories}), "data/viz.json")
+        # write_json_to_file(to_json(targets), "data/raw.json")
         return HTMLResponse(content=html)
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=400, detail=str(e))
